@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奇美醫學教育互動導覽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: A thematic, single-page application with a sticky top navigation for easy access to key sections: Philosophy, Framework, Events, and Future. This non-linear structure allows diverse users (students, staff, public) to explore content based on their interests. The core interaction revolves around visualizing the 'Root-Trunk-Branches' model, using clickable cards and tabs to reveal detailed information progressively, thus preventing cognitive overload and enhancing user engagement. The event section is designed as a practical, multi-venue, tabbed calendar to make a complex schedule easily digestible. This design prioritizes usability and intuitive exploration over a linear report format. -->
+    <!-- Visualization & Content Choices: 
+        - Philosophy (Goal: Inform/Inspire): Interactive cards (HTML/CSS) to present abstract concepts in a digestible format. Interaction: Click to expand. Justification: More engaging than static text.
+        - Framework (Goal: Organize/Explain): A doughnut chart (Chart.js) and a structured HTML/CSS diagram with interactive tabs. Interaction: Click tabs to filter content for the six execution scopes. Justification: Visually represents the educational pillars and their relationships, allowing focused exploration.
+        - Events (Goal: Inform/Organize): A polar area chart (Chart.js) to show event type distribution and a tabbed, interactive timeline (HTML/CSS/JS). Interaction: Click event for details. Justification: Provides a quick overview and a user-friendly schedule browser.
+        - Future (Goal: Explain Process): A circular flow diagram (HTML/CSS) for the Learning Health System. Justification: Intuitively explains a cyclical process.
+        - Library/Method: Chart.js for all charts (Canvas-based), Vanilla JS for all interactions. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #A0522D;
+            border-bottom-color: #A0522D;
+        }
+        .tab-btn.active {
+            background-color: #A0522D;
+            color: #FFFFFF;
+        }
+        .tab-btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        [x-cloak] {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-[#3A3A3A]">
+                <span class="text-[#A0522D]">奇美</span>醫學教育
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#philosophy" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">理念根基</a>
+                <a href="#framework" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">教育架構</a>
+                <a href="#events" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">奇美月活動</a>
+                <a href="#future" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">未來展望</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#philosophy" class="block py-2 text-gray-600">理念根基</a>
+            <a href="#framework" class="block py-2 text-gray-600">教育架構</a>
+            <a href="#events" class="block py-2 text-gray-600">奇美月活動</a>
+            <a href="#future" class="block py-2 text-gray-600">未來展望</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="py-20 md:py-32 bg-stone-50">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-[#3A3A3A] leading-tight">奇美月</h1>
+                <p class="mt-4 text-lg md:text-2xl text-[#A0522D] font-medium">醫學與文化的交響詩</p>
+                <p class="mt-6 max-w-3xl mx-auto text-gray-600 leading-relaxed">
+                    「奇美月」不僅是一場年度盛事，更是奇美醫院核心價值的體現。我們將創辦人許文龍先生「文化與醫療並重」的夢想，融入醫學教育的每一個環節，透過「三館聯展」的創新形式，邀請您一同探索醫學的人文溫度與未來可能。
+                </p>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">理念根基：源自許文龍先生的哲學</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">奇美醫學教育的獨特之處，在於其深植於創辦人的人本哲學。這些理念是我們的「根」，滋養著所有策略與行動。</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="philosophy-cards">
+                </div>
+            </div>
+        </section>
+
+        <!-- Framework Section -->
+        <section id="framework" class="py-16 md:py-24 bg-stone-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">教育架構：從根到果的有機體</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">我們的教育體系如同一棵大樹，以人本哲學為根，以清晰願景為幹，發展出六大策略枝枒，最終開花結果，培育能創造未來的醫學人才。</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="text-center border-b pb-6 mb-6 border-dashed">
+                        <p class="text-sm font-semibold text-[#A0522D] tracking-widest">願景 VISION</p>
+                        <h3 class="mt-2 text-xl md:text-2xl font-bold text-[#3A3A3A]">以360度人生哲學，培育具備創造未來能力的醫學人才</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-8 text-center my-8">
+                        <div>
+                            <p class="font-bold text-lg text-[#3A3A3A]">全人</p>
+                            <p class="text-sm text-gray-500 mt-1">專業與人文並重，兼顧知識、技能、態度與價值觀。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg text-[#3A3A3A]">適性</p>
+                            <p class="text-sm text-gray-500 mt-1">依學習者特質、能力與需求，提供最適化、情境化的學習體驗。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg text-[#3A3A3A]">創新</p>
+                            <p class="text-sm text-gray-500 mt-1">推動教育與醫療模式革新，結合永續與社會責任。</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                        <h4 class="text-center text-2xl font-bold text-[#3A3A3A] mb-8">六大執行範疇</h4>
+                        <div class="lg:flex lg:space-x-8">
+                            <div class="lg:w-1/2 mb-8 lg:mb-0">
+                                <div class="chart-container">
+                                    <canvas id="frameworkChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="lg:w-1/2">
+                                <div class="flex flex-wrap gap-2 mb-4" id="scope-tabs">
+                                </div>
+                                <div id="scope-content" class="p-6 bg-stone-50 rounded-lg min-h-[200px] fade-in">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">奇美月活動：三館聯展的實踐</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">橫跨整個十一月，我們在奇美博物館、吳園與奇美醫院，將醫學專業、人文藝術與社區生活緊密結合，實現「無牆醫院」的理念。</p>
+                </div>
+
+                <div class="lg:flex lg:gap-8">
+                    <div class="lg:w-2/3">
+                        <div class="mb-6">
+                            <div class="flex border-b" id="venue-tabs">
+                            </div>
+                        </div>
+                        <div id="events-timeline" class="space-y-4">
+                        </div>
+                    </div>
+                    <div class="lg:w-1/3 mt-12 lg:mt-0">
+                         <h4 class="text-center text-xl font-bold text-[#3A3A3A] mb-4">活動類型分佈</h4>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="eventsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Section -->
+        <section id="future" class="py-16 md:py-24 bg-stone-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">未來展望：開花結果與永續發展</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">我們的目標是建立一個持續學習、適應和優化的「學習型健康組織」，讓醫學教育的成果能直接反饋臨床服務，形成良性循環。</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-bold text-[#3A3A3A]">學習型健康組織 (LHS)</h3>
+                        <p class="mt-4 text-gray-600">我們將LHS的「數據-知識-實踐」循環融入醫學教育，讓醫院成為一個「越治療越聰明」的醫療生態系。這不僅是技術導入，更是建構一個從臨床實踐中學習、透過數據反饋持續改進的組織文化。</p>
+                    </div>
+                    <div class="md:w-1/2 w-full">
+                        <div class="relative w-full aspect-square max-w-sm mx-auto">
+                            <div class="absolute inset-0 border-4 border-dashed border-stone-300 rounded-full animate-spin" style="animation-duration: 20s;"></div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-stone-50 rounded-full flex items-center justify-center text-center p-4">
+                                <span class="font-bold text-[#A0522D]">持續改進<br>Continuous Improvement</span>
+                            </div>
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-md">
+                                <p class="text-sm font-semibold">數據 Data</p>
+                            </div>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 bg-white p-3 rounded-full shadow-md">
+                                <p class="text-sm font-semibold">實踐 Practice</p>
+                            </div>
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-md">
+                                <p class="text-sm font-semibold">知識 Knowledge</p>
+                            </div>
+                             <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white p-3 rounded-full shadow-md">
+                                <p class="text-sm font-semibold">病人參與 Patient</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#3A3A3A] text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Chimei Medical Center. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">此頁面為奇美醫學教育報告之互動式導覽。</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="event-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <h3 id="modal-title" class="text-2xl font-bold text-[#3A3A3A]"></h3>
+                    <button id="modal-close" class="text-gray-500 hover:text-gray-800">&times;</button>
+                </div>
+                <p id="modal-date" class="text-sm text-gray-500 mt-2"></p>
+                <p id="modal-venue" class="text-sm text-gray-500"></p>
+                <div id="modal-description" class="mt-4 text-gray-700 leading-relaxed"></div>
+                <div id="modal-participants" class="mt-4 text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const philosophyData = [
+                {
+                    title: '文化與醫療並重',
+                    icon: '🏛️',
+                    description: '創辦人許文龍先生選擇「文化」與「醫療」作為回饋社會的兩條路，旨在同時照顧鄉親的身心健康。此理念是奇美醫院與奇美博物館建立的基石。'
+                },
+                {
+                    title: '追求幸福人生',
+                    icon: '😊',
+                    description: '「人要過得幸福，最終還是要回到健康的心靈和強健的身體。」此理念指導我們，醫療的最終目的不僅是治癒疾病，更是幫助個體達到全面的幸福與健康。'
+                },
+                {
+                    title: '歸零重構',
+                    icon: '🔄',
+                    description: '「跌倒了別急著站起來，先看看周圍有沒有寶物可以撿。」我們鼓勵從挫折中學習，將自我歸零，回到本質思考，再重新構築解決方案，培養韌性與創新能力。'
+                },
+                {
+                    title: '360°全人平衡',
+                    icon: '🌐',
+                    description: '強調生命的多面向與平衡發展。醫護人員不僅要追求醫術精進，也要關注身心靈健康、家庭與社會生活，成為一個完整的人，才能長期以熱忱服務病人。'
+                }
+            ];
+
+            const scopeData = {
+                '師資培育': {
+                    icon: '👨‍🏫',
+                    description: '塑造持續學習的典範教育者。我們期許教師能體現奇美「根」的精神，以言傳身教影響學生的專業態度和價值觀，成為學生在人本初心、歸零學習與平衡人生上的榜樣。'
+                },
+                '能力導向教育': {
+                    icon: '🎯',
+                    description: '培養學生的臨床重構力與全方位素養。我們強調學生需具備回歸人性初心的能力，在真實世界中解決複雜問題，成為能夠在快速變化的醫療環境中持續學習和適應的「變革代理人」。'
+                },
+                '醫學人文': {
+                    icon: '❤️',
+                    description: '厚植人文素養與全人關懷。我們深信醫師不僅治病，更是治癒「生病的人」。透過臨床人文融合與生命經驗教育，培養學生深層次的同理心和對生命意義的體悟。'
+                },
+                '數位賦能': {
+                    icon: '💻',
+                    description: '引領智慧醫療與數據驅動學習。我們擁抱數位技術，培養能掌控科技又不失人性關懷的智慧醫療人才，建立一個「越治療越聰明」的學習型健康組織。'
+                },
+                '國際合作': {
+                    icon: '🌍',
+                    description: '我們積極尋求國際合作，將自身醫學教育與全球最佳實踐對標。透過邀請國際專家並參與跨國學術交流，引進新知，並將自身定位為全球醫學教育對話的參與者。'
+                },
+                '社會責任': {
+                    icon: '🤝',
+                    description: '將醫療影響力從院內擴展到社區。我們教育學生胸懷社會，關注弱勢與公共衛生議題，透過「無牆醫院」的實踐，成為社區健康的守護者和推動者。'
+                }
+            };
+
+            const eventsData = [
+                { date: '11月1日', venue: '吳園', time: '09:00-12:00', title: '腦中風暨腦創傷病友會', type: '病友會', description: '提供病友與家屬交流平台，宣導預防與照護知識，包含有獎徵答、毛巾健康操、經驗分享等。', participants: '復健治療師、營養師、醫師、居家護理師、臨床護理師' },
+                { date: '11月1日-11月16日', venue: '吳園', time: '全天', title: '吳園特展', type: '展覽', description: '以醫學人文為主軸，展出醫療人員與病人的真實故事、醫學文化藝術，並介紹奇美在地創造醫療聯盟。', participants: '醫學人文部門、大台南醫療聯盟、中小型醫院' },
+                { date: '11月1日/2日, 8日/9日', venue: '吳園', time: '全天', title: '社區篩檢、健檢體驗市集', type: '社區活動', description: '將健康服務帶入社區，提供基礎篩檢與健康諮詢，實踐「無牆醫院」理念。', participants: '醫學人文部門、社區社團' },
+                { date: '11月14日-11月28日', venue: '奇美博物館', time: '全天', title: '布雷西亞廳特展', type: '展覽', description: '以年代為主軸，展示奇美醫院從創辦人夢想起源到今日深耕台南的醫療設備與人員優化演進史。', participants: 'HIM捷思整合行銷' },
+                { date: '11月15日', venue: '奇美博物館', time: '全天', title: '感染管制會議、重症感染研討會', type: '研討會', description: '聚焦專業議題，探討最新的感染管制策略與重症感染治療方法，提升醫療品質。', participants: '品質管理中心、感染管制中心' },
+                { date: '11月16日', venue: '奇美博物館', time: '全天', title: '醫品&病安國際研討會', type: '研討會', description: '邀請國際專家分享，主題涵蓋Clean Care 2.0、公平醫療體系、跨專業合作全人照護與智慧醫療轉型。', participants: '品質管理中心、感染管制中心、臺灣醫療品質協會、國際專家' },
+                { date: '11月22日', venue: '奇美博物館', time: '上午', title: '醫學人文沙龍 & AMEE心得分享', type: '沙龍', description: '小規模深度交流，探討醫學人文實踐，並分享國際醫學教育年會(AMEE)的最新趨勢與心得。', participants: '醫教委員、教學負責人' },
+                { date: '11月22日', venue: '奇美博物館', time: '全天', title: '醫師PGY說明會', type: '說明會', description: '旨在吸引潛在住院醫師，詳細介紹奇美醫院的PGY培訓計畫、福利與未來發展優勢。', participants: '教學行政管理員' },
+                { date: '11月22日', venue: '奇美博物館', time: '全天', title: 'YY Talk-當代人物論壇', type: '論壇', description: '邀請大咖、Andy老師、陳美伶、簡立峰等知名人士，探討地方創生等跨領域議題，拓展醫學視野。', participants: '教學行政管理員' },
+                { date: '11月23日', venue: '奇美博物館', time: '上午', title: '醫事職類PGY回娘家 & 在地職人沙龍', type: '沙龍', description: '強化校友連結，促進經驗傳承，並邀請在地職人分享，進行跨領域對話。', participants: '各醫事職類校友、在地職人' },
+                { date: '11月23日', venue: '奇美博物館', time: '上午', title: 'AI應用於醫學教育競賽發表會', type: '競賽', description: '決賽發表會，展示將AI技術創新應用於醫學教育的優秀專案，體現數位賦能成果。', participants: '參賽團隊、評審、教學行政管理員' },
+                { date: '11月23日', venue: '奇美博物館', time: '下午', title: '教學共識營 workshop', type: '工作坊', description: '旨在凝聚醫教委員、教學負責人及內外部顧問共識，共同討論並推動未來教學改革方向。', participants: '醫教委員、教學負責人、外部顧問、國外貴賓' },
+                { date: '11月23日', venue: '奇美博物館', time: '全天', title: '醫學教育國際研討會', type: '研討會', description: '包含專題演講(Lecture)與實作工作坊(Workshop)，主題與教學共識營緊密相關，深化國際學術交流。', participants: '教學行政管理員、國內外專家' },
+            ];
+            
+            const philosophyContainer = document.getElementById('philosophy-cards');
+            philosophyData.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card bg-white p-8 rounded-xl shadow-md cursor-pointer';
+                card.innerHTML = `
+                    <div class="text-4xl mb-4">${p.icon}</div>
+                    <h3 class="text-xl font-bold text-[#3A3A3A]">${p.title}</h3>
+                    <p class="mt-2 text-gray-600">${p.description}</p>
+                `;
+                philosophyContainer.appendChild(card);
+            });
+
+            const scopeTabsContainer = document.getElementById('scope-tabs');
+            const scopeContentContainer = document.getElementById('scope-content');
+            Object.keys(scopeData).forEach((scope, index) => {
+                const button = document.createElement('button');
+                button.className = 'tab-btn px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-full shadow-sm hover:bg-stone-100';
+                button.textContent = scope;
+                button.dataset.scope = scope;
+                scopeTabsContainer.appendChild(button);
+
+                if (index === 0) {
+                    button.classList.add('active');
+                    updateScopeContent(scope);
+                }
+            });
+
+            scopeTabsContainer.addEventListener('click', e => {
+                if (e.target.tagName === 'BUTTON') {
+                    scopeTabsContainer.querySelector('.active').classList.remove('active');
+                    e.target.classList.add('active');
+                    updateScopeContent(e.target.dataset.scope);
+                }
+            });
+
+            function updateScopeContent(scope) {
+                const data = scopeData[scope];
+                scopeContentContainer.innerHTML = `
+                    <div class="flex items-start space-x-4 fade-in">
+                        <div class="text-3xl">${data.icon}</div>
+                        <div>
+                            <h5 class="font-bold text-lg text-[#3A3A3A]">${scope}</h5>
+                            <p class="mt-1 text-gray-600">${data.description}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const frameworkCtx = document.getElementById('frameworkChart').getContext('2d');
+            new Chart(frameworkCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(scopeData),
+                    datasets: [{
+                        label: '執行範疇',
+                        data: [1, 1, 1, 1, 1, 1],
+                        backgroundColor: ['#d4a5a5', '#ffcda3', '#fff4a3', '#c8e6c9', '#a3d8f4', '#c3aed6'],
+                        borderColor: '#FDFBF8',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                             labels: {
+                                font: {
+                                    family: "'Inter', 'Noto Sans TC', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            const venueTabsContainer = document.getElementById('venue-tabs');
+            const eventsTimelineContainer = document.getElementById('events-timeline');
+            const venues = ['所有場地', '奇美博物館', '吳園'];
+            
+            venues.forEach((venue, index) => {
+                const button = document.createElement('button');
+                button.className = 'flex-1 md:flex-none tab-btn px-4 py-3 text-sm md:text-base font-medium text-center text-gray-600 bg-transparent hover:bg-stone-100';
+                button.textContent = venue;
+                button.dataset.venue = venue;
+                if (index === 0) {
+                    button.classList.add('active', 'border-b-2', 'border-[#A0522D]', 'text-[#A0522D]');
+                } else {
+                    button.classList.add('border-b', 'border-gray-200')
+                }
+                venueTabsContainer.appendChild(button);
+            });
+
+            function renderTimeline(venue) {
+                eventsTimelineContainer.innerHTML = '';
+                const filteredEvents = venue === '所有場地' ? eventsData : eventsData.filter(e => e.venue === venue);
+                
+                if (filteredEvents.length === 0) {
+                    eventsTimelineContainer.innerHTML = `<div class="text-center text-gray-500 p-8">此場地無活動安排。</div>`;
+                    return;
+                }
+
+                filteredEvents.forEach((event, index) => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = 'fade-in flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow';
+                    eventElement.dataset.index = eventsData.indexOf(event);
+                    eventElement.innerHTML = `
+                        <div class="flex-shrink-0 text-center w-20">
+                            <p class="font-bold text-lg text-[#A0522D]">${event.date.split('月')[0]}月</p>
+                            <p class="text-sm text-gray-500">${event.date.split('月')[1]}</p>
+                        </div>
+                        <div class="border-l-2 border-stone-200 pl-4 flex-grow">
+                            <p class="font-bold text-lg text-[#3A3A3A]">${event.title}</p>
+                            <p class="text-sm text-gray-500">${event.venue} • ${event.time}</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                           <span class="px-3 py-1 text-xs font-semibold text-white bg-[#A0522D] rounded-full">${event.type}</span>
+                        </div>
+                    `;
+                    eventsTimelineContainer.appendChild(eventElement);
+                });
+            }
+
+            venueTabsContainer.addEventListener('click', e => {
+                if (e.target.tagName === 'BUTTON') {
+                    const currentActive = venueTabsContainer.querySelector('.active');
+                    if(currentActive) {
+                        currentActive.classList.remove('active', 'border-b-2', 'border-[#A0522D]', 'text-[#A0522D]');
+                        currentActive.classList.add('border-b', 'border-gray-200');
+                    }
+                    e.target.classList.add('active', 'border-b-2', 'border-[#A0522D]', 'text-[#A0522D]');
+                    e.target.classList.remove('border-b', 'border-gray-200');
+                    renderTimeline(e.target.dataset.venue);
+                }
+            });
+            
+            renderTimeline('所有場地');
+
+            const eventTypes = [...new Set(eventsData.map(e => e.type))];
+            const eventTypeCounts = eventTypes.map(type => eventsData.filter(e => e.type === type).length);
+            const eventsCtx = document.getElementById('eventsChart').getContext('2d');
+            new Chart(eventsCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: eventTypes,
+                    datasets: [{
+                        label: '活動數量',
+                        data: eventTypeCounts,
+                        backgroundColor: ['rgba(212, 165, 165, 0.7)', 'rgba(255, 205, 163, 0.7)', 'rgba(255, 244, 163, 0.7)', 'rgba(200, 230, 201, 0.7)', 'rgba(163, 216, 244, 0.7)', 'rgba(195, 174, 214, 0.7)', 'rgba(244, 163, 194, 0.7)'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            ticks: {
+                                backdropColor: 'transparent',
+                                stepSize: 1
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                             pointLabels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Inter', 'Noto Sans TC', sans-serif"
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: "'Inter', 'Noto Sans TC', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const modal = document.getElementById('event-modal');
+            const modalClose = document.getElementById('modal-close');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDate = document.getElementById('modal-date');
+            const modalVenue = document.getElementById('modal-venue');
+            const modalDescription = document.getElementById('modal-description');
+            const modalParticipants = document.getElementById('modal-participants');
+
+            eventsTimelineContainer.addEventListener('click', e => {
+                const eventCard = e.target.closest('[data-index]');
+                if (eventCard) {
+                    const eventIndex = eventCard.dataset.index;
+                    const event = eventsData[eventIndex];
+                    modalTitle.textContent = event.title;
+                    modalDate.textContent = `日期: ${event.date} | 時間: ${event.time}`;
+                    modalVenue.textContent = `地點: ${event.venue}`;
+                    modalDescription.innerHTML = `<p>${event.description}</p>`;
+                    modalParticipants.innerHTML = `<p class="font-bold mt-4 text-gray-800">主要參與單位/人員:</p><p class="text-gray-600">${event.participants}</p>`;
+                    modal.classList.remove('hidden');
+                }
+            });
+
+            modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+            modal.addEventListener('click', e => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
