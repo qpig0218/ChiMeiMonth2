@@ -77,7 +77,7 @@
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-[#3A3A3A]">
-                <span class="text-[#A0522D]">2025 攜手奇美 </span>深耕臺南 健康臺灣
+                <span class="text-[#A0522D]">2025 攜手奇美</span>深耕臺南
             </div>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#philosophy" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">理念根基</a>
@@ -128,7 +128,7 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">教育架構：從根到果的有機體</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">我們的教育體系如同一棵大樹，以人本哲學為根，以清晰願景以及核心價值為幹，發展出六大策略路徑枝枒，最終開花結果，培育具備創造未來能力的醫學人才。</p>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">我們的教育體系如同一棵大樹，以人本哲學為根，以清晰願景為幹，發展出六大策略枝枒，最終開花結果，培育能創造未來的醫學人才。</p>
                 </div>
 
                 <div class="bg-white p-8 rounded-xl shadow-lg">
@@ -140,7 +140,7 @@
                     <div class="grid md:grid-cols-3 gap-8 text-center my-8">
                         <div>
                             <p class="font-bold text-lg text-[#3A3A3A]">全人</p>
-                            <p class="text-sm text-gray-500 mt-1">專業與人文並重，兼顧知識、技能、團隊合作、態度與價值觀。</p>
+                            <p class="text-sm text-gray-500 mt-1">專業與人文並重，兼顧知識、技能、態度與價值觀。</p>
                         </div>
                         <div>
                             <p class="font-bold text-lg text-[#3A3A3A]">適性</p>
@@ -177,7 +177,7 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-[#3A3A3A]">奇美月活動：三館聯展的實踐</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">橫跨整個十一月，我們在奇美博物館、吳園與奇美醫院，將醫學專業、人文藝術、醫學教育與社區生活緊密結合，實現「無牆醫院」與創造「群體健康價值」的理念。</p>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">橫跨整個十一月，我們在奇美博物館、吳園與奇美醫院，將醫學專業、人文藝術與社區生活緊密結合，實現「無牆醫院」的理念。</p>
                 </div>
 
                 <div class="lg:flex lg:gap-8">
@@ -278,13 +278,17 @@
                 {
                     title: '360°全人平衡',
                     icon: '🌐',
-                    description: '強調生命的多面向與平衡發展。醫療人員不僅要追求醫術精進，也要關注身心靈健康、家庭與社會生活，成為一個完整的人，才能長期以熱忱服務病人。'
+                    description: '強調生命的多面向與平衡發展。醫護人員不僅要追求醫術精進，也要關注身心靈健康、家庭與社會生活，成為一個完整的人，才能長期以熱忱服務病人。'
                 },
-               
+                {
+                    title: '歸零重構',
+                    icon: '🔄',
+                    description: '「跌倒了別急著站起來，先看看周圍有沒有寶物可以撿。」我們鼓勵從挫折中學習，將自我歸零，回到本質思考，再重新構築解決方案，培養韌性與創新能力。'
+                }
             ];
 
             const scopeData = {
-                '教師培育': {
+                '師資培育': {
                     icon: '👨‍🏫',
                     description: '塑造持續學習的典範教育者。我們期許教師能體現奇美「根」的精神，以言傳身教影響學生的專業態度和價值觀，成為學生在人本初心、歸零學習與平衡人生上的榜樣。'
                 },
@@ -302,26 +306,28 @@
                 },
                 '國際合作': {
                     icon: '🌍',
-                    description: '我們積極尋求國際合作，將自身醫學教育與全球最佳典範對標。透過邀請國際專家並參與跨國學術交流，引進新知，並將自身定位為全球醫學教育對話的參與者。'
+                    description: '我們積極尋求國際合作，將自身醫學教育與全球最佳實踐對標。透過邀請國際專家並參與跨國學術交流，引進新知，並將自身定位為全球醫學教育對話的參與者。'
                 },
                 '社會責任': {
                     icon: '🤝',
-                    description: '將醫療影響力從院內擴展到社區。我們教育學生胸懷社會，關注弱勢與公共衛生議題，透過「無牆醫院」的實踐，創造更多的「群體健康」價值，成為大臺南民眾健康的守護者和推動者。'
+                    description: '將醫療影響力從院內擴展到社區。我們教育學生胸懷社會，關注弱勢與公共衛生議題，透過「無牆醫院」的實踐，成為社區健康的守護者和推動者。'
                 }
             };
 
             const eventsData = [
-                { date: '11月1日', venue: '吳園', time: '09:00-12:00', title: '腦中風暨腦創傷病友會', type: '病友會', description: '提供病友與家屬交流平台，宣導預防與照護知識，包含有獎徵答、毛巾健康操、經驗分享等。', participants: '復健治療師、營養師、醫師、居家護理師、臨床護理師、慢病管理小組' },
-                { date: '11月1日-11月16日', venue: '吳園', time: '全天', title: '吳園特展', type: '展覽', description: '以醫學人文為主軸，展出醫療人員與病人的真實故事、醫學文化藝術，並介紹奇美在地創造醫療聯盟。', participants: '醫學人文組、藥劑部、護理部、教學部、奇美人以及Family、奇美學員},
-                { date: '11月14日-11月28日', venue: '奇美博物館', time: '全天', title: '布雷西亞廳特展', type: '展覽', description: '以年代為主軸，展示奇美醫院從創辦人夢想起源到今日深耕台南的醫療設備與人員優化演進史。', participants: '院長室研發組、藥劑部、品管部、教學部、護理部、HIM捷思整合行銷' },
-                { date: '11月15日', venue: '奇美博物館', time: '全天', title: '感染管制會議、重症感染研討會', type: '研討會', description: '聚焦專業議題，探討最新的感染管制策略與重症感染治療方法，提升醫療品質。', participants: '品質管理部、感染管制中心、臺南市衛生局' },
-                { date: '11月16日', venue: '奇美博物館', time: '全天', title: '醫品&病安國際研討會', type: '研討會', description: '邀請國際專家分享，主題涵蓋Clean Care 2.0、公平醫療體系、跨專業合作全人照護與智慧醫療轉型。', participants: '品質管理部、感染管制中心、臺灣醫療品質協會、國際專家' },
-                { date: '11月22日', venue: '奇美博物館', time: '上午', title: '醫學人文沙龍 & AMEE心得分享', type: '沙龍', description: '小規模深度交流，探討醫學人文實踐，並分享國際醫學教育年會(AMEE)的最新趨勢與心得。', participants: 'Target Audience' },
-                { date: '11月22日', venue: '奇美博物館', time: '全天', title: '全職類PGY說明會暨現任PGYIPE工作坊', type: '說明會', description: '旨在介紹奇美醫院PGY培訓計劃、福利與未來發展優勢，同時透過全職類PGY的參與，加強跨專業團隊照護的精神。', participants: ' PGY成員、各科PGY負責人、教學行政管理員' },
-                { date: '11月22日', venue: '奇美博物館', time: '全天', title: 'YY Talk-2025 當代人物論壇', type: '論壇', description: '透過不同領域職人分享，讓PGY學員看見多元職涯發展。同時透過邀請政院代表、市府代表、奇美博物館代表、醫療產業代表、AI產業代表、地方創生代表等知名人士的短講，探討次世代醫療與地方結合的跨域議題，並透過對話讓參與者思考如何永續健康照護的不同面向，同時如何創造群體健康價值來協助達成健康臺灣的願景。', participants: '奇美醫院與博物館同仁、PGY學員、教學部、人物誌' },
-                { date: '11月23日', venue: '奇美博物館', time: '上午', title: 'PGY回娘家與海外留學Faculty Club', type: '沙龍', description: '強化奇美人的連結，促進與他院的經驗交流，強化學習動力，並收集PGY訓練計劃長期成果的反饋；透過出國多元進修的心得分享，提供PGY校友以及參與者思考多元職涯發展可能性，同時建立海外進修名人榜以及師生經驗分享平台，逐步建立多元專業人才庫。', participants: '各職類PGY校友、海外進修Faculty成員' },
-                { date: '11月23日', venue: '奇美博物館', time: '上午', title: 'AI應用於醫學教育競賽成果發表會', type: '競賽', description: '決賽成果發表會，展示將AI技術創新應用於醫學教育的優秀專案，體現數位賦能成果。', participants: '參賽團隊、外部評審、教學部' },
-                { date: '11月23日', venue: '奇美博物館', time: '全天', title: '奇美醫學教育研討會暨共識營 workshop', type: '工作坊', description: '除了展現年度醫學教育成果，還包含專題演講(Lecture)與實作工作坊(Workshop)，並透過內、外部顧問以及國際學者的指導，深化國際學術交流，不斷精進奇美醫教品質，也凝聚內部教學共識，學習落地應用經驗與精進教育品質技巧。透過專題演講(Lecture)與實作工作坊(Workshop)，教學共識營與研討會緊緊相扣，共識內容將會在顧問指導下，聚焦2026年的年度教學目標與執行路徑，透過醫學教育的框架，逐步落實奇美醫教理念。', participants: '外部顧問、國外貴賓、教學部、醫教委員、教學負責人、Faculty' },
+                { date: '11月1日', venue: '吳園', time: '09:00-12:00', title: '腦中風暨腦創傷病友會', type: '病友會', description: '提供病友與家屬交流平台，宣導預防與照護知識，包含有獎徵答、毛巾健康操、經驗分享等。', participants: '復健治療師、營養師、醫師、居家護理師、臨床護理師' },
+                { date: '11月1日-11月16日', venue: '吳園', time: '全天', title: '吳園特展', type: '展覽', description: '以醫學人文為主軸，展出醫療人員與病人的真實故事、醫學文化藝術，並介紹奇美在地創造醫療聯盟。', participants: '醫學人文部門、大台南醫療聯盟、中小型醫院' },
+                { date: '11月1日/2日, 8日/9日', venue: '吳園', time: '全天', title: '社區篩檢、健檢體驗市集', type: '社區活動', description: '將健康服務帶入社區，提供基礎篩檢與健康諮詢，實踐「無牆醫院」理念。', participants: '醫學人文部門、社區社團' },
+                { date: '11月14日-11月28日', venue: '奇美博物館', time: '全天', title: '布雷西亞廳特展', type: '展覽', description: '以年代為主軸，展示奇美醫院從創辦人夢想起源到今日深耕台南的醫療設備與人員優化演進史。', participants: 'HIM捷思整合行銷' },
+                { date: '11月15日', venue: '奇美博物館', time: '全天', title: '感染管制會議、重症感染研討會', type: '研討會', description: '聚焦專業議題，探討最新的感染管制策略與重症感染治療方法，提升醫療品質。', participants: '品質管理中心、感染管制中心' },
+                { date: '11月16日', venue: '奇美博物館', time: '全天', title: '醫品&病安國際研討會', type: '研討會', description: '邀請國際專家分享，主題涵蓋Clean Care 2.0、公平醫療體系、跨專業合作全人照護與智慧醫療轉型。', participants: '品質管理中心、感染管制中心、臺灣醫療品質協會、國際專家' },
+                { date: '11月22日', venue: '奇美博物館', time: '上午', title: '醫學人文沙龍 & AMEE心得分享', type: '沙龍', description: '小規模深度交流，探討醫學人文實踐，並分享國際醫學教育年會(AMEE)的最新趨勢與心得。', participants: '醫教委員、教學負責人' },
+                { date: '11月22日', venue: '奇美博物館', time: '全天', title: '醫師PGY說明會', type: '說明會', description: '旨在吸引潛在住院醫師，詳細介紹奇美醫院的PGY培訓計畫、福利與未來發展優勢。', participants: '教學行政管理員' },
+                { date: '11月22日', venue: '奇美博物館', time: '全天', title: 'YY Talk-當代人物論壇', type: '論壇', description: '邀請大咖、Andy老師、陳美伶、簡立峰等知名人士，探討地方創生等跨領域議題，拓展醫學視野。', participants: '教學行政管理員' },
+                { date: '11月23日', venue: '奇美博物館', time: '上午', title: '醫事職類PGY回娘家 & 在地職人沙龍', type: '沙龍', description: '強化校友連結，促進經驗傳承，並邀請在地職人分享，進行跨領域對話。', participants: '各醫事職類校友、在地職人' },
+                { date: '11月23日', venue: '奇美博物館', time: '上午', title: 'AI應用於醫學教育競賽發表會', type: '競賽', description: '決賽發表會，展示將AI技術創新應用於醫學教育的優秀專案，體現數位賦能成果。', participants: '參賽團隊、評審、教學行政管理員' },
+                { date: '11月23日', venue: '奇美博物館', time: '下午', title: '教學共識營 workshop', type: '工作坊', description: '旨在凝聚醫教委員、教學負責人及內外部顧問共識，共同討論並推動未來教學改革方向。', participants: '醫教委員、教學負責人、外部顧問、國外貴賓' },
+                { date: '11月23日', venue: '奇美博物館', time: '全天', title: '醫學教育國際研討會', type: '研討會', description: '包含專題演講(Lecture)與實作工作坊(Workshop)，主題與教學共識營緊密相關，深化國際學術交流。', participants: '教學行政管理員、國內外專家' },
             ];
             
             const philosophyContainer = document.getElementById('philosophy-cards');
