@@ -315,6 +315,7 @@
             };
 
             const eventsData = [
+                { date: '7月18日-12月31日', venue: '奇美醫院', time: '全天', title: '奇美暖心角', type: '設施', description: '奇美暖心角設於第二與第五醫療大樓二樓間，讓空橋廊道不再只是通行動線，而是轉化為一條連接身體與心靈兩端的過渡帶。整體視覺設計採用墨綠色調，象徵一片靜謐的林地，宛如醫療場域中的「低調療癒者」，在來去匆匆的腳步聲中，悄然打開一扇通往內心的門，這是一處不需語言也能傳遞溫度的場域。', participants: '教學部、醫教會醫學人文組、藥劑部、院長室研發組' },
                 { date: '11月1日', venue: '吳園', time: '09:00-12:00', title: '腦中風暨腦創傷病友會', type: '病友會', description: '提供病友與家屬交流平台，宣導預防與照護知識，包含有獎徵答、毛巾健康操、經驗分享等。', participants: '護理部、復健治療師、營養師、醫師、居家護理師、臨床護理師' },
                 { date: '11月1日-11月16日', venue: '吳園', time: '全天', title: '吳園特展', type: '展覽', description: '以醫學人文為主軸，展出醫療人員與病人的真實故事、醫學文化藝術，奇美小螺絲大力量的企業文化，並介紹奇美深耕臺南在地，為鄉親創造群體價值。', participants: '醫學人文組、藥劑部、護理部、教學部、奇美人以及Family、奇美學員、深耕計劃裡的聯盟夥伴機構' },
                 { date: '11月14日-11月28日', venue: '奇美博物館', time: '全天', title: '布雷西亞廳特展', type: '展覽', description: '以年代為主軸，展示奇美醫院從創辦人夢想起源到今日深耕臺南的醫療設備與人員優化演進史。', participants: '院長室研發組、藥劑部、品管部、教學部、護理部、HIM捷思整合行銷' },
@@ -415,7 +416,7 @@
 
             const venueTabsContainer = document.getElementById('venue-tabs');
             const eventsTimelineContainer = document.getElementById('events-timeline');
-            const venues = ['所有場地', '奇美博物館', '吳園'];
+            const venues = ['所有場地', '奇美博物館', '吳園', '奇美醫院'];
             
             venues.forEach((venue, index) => {
                 const button = document.createElement('button');
