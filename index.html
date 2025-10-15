@@ -137,7 +137,11 @@ a:focus-visible, button:focus-visible, [role="tab"]:focus-visible, [role="link"]
 .bento-card:hover{ transform: translateY(-3px); box-shadow: 0 18px 26px -16px rgba(0,0,0,.35); }
 .bento-card .title{ font-weight: 800; font-size: 1.125rem; color: var(--c-primary-700); letter-spacing: .02em; }
 .bento-card .subtitle{ color:#334155; font-size:.9rem; }
-.bento-card .cta{ position:absolute; right:16px; bottom:16px; font-weight:700; }
+.bento-card .cta{ display:inline-flex; align-items:center; gap:0.25rem; margin-top:1.25rem; font-weight:700; }
+@media (min-width: 768px){
+  .bento-card{ padding-bottom:60px; }
+  .bento-card .cta{ position:absolute; right:16px; bottom:16px; margin-top:0; }
+}
 .calendar-card{ grid-column: span 1; }
 @media (min-width:1024px){ .calendar-card{ grid-column: span 1; } }
 
@@ -221,7 +225,7 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
   <div class="container mx-auto px-6 relative z-10 text-center">
       <p class="inline-block px-3 py-1 text-sm md:text-base bg-white/70 rounded-full shadow-sm border">2025 奇美齊心</p>
       <h1 class="mt-4 text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight tracking-tight">深耕臺南，健康臺灣</h1>
-      <p class="mt-4 md:mt-6 text-base md:text-xl text-gray-700 max-w-2xl mx-auto">把創辦人「文化與醫療並重」的精神，轉譯成可被看見、可被參與的互動體驗；今年的「奇美月」整合三館聯展、教育與社區，讓醫療與人文同頻共鳴。</p>
+      <p class="mt-4 md:mt-6 text-base md:text-xl text-gray-700 max-w-2xl mx-auto">「奇美月」是奇美醫療核心價值體現的年度盛事。我們將創辦人「文化與醫療並重」的夢想，融入醫學教育與臨床照護，今年十一月將透過「三館聯展」的創新形式，在奇美博物館、吳園及奇美醫院，舉辦「深耕臺南 健康臺灣」系列活動，將醫療專業、醫學教育、醫品病安、人文藝術與社區生活緊密結合，落實「無牆醫院」理念，也呈現奇美在「健康臺灣 深耕計劃」中，培育多元人才與運用智慧醫療科技來優化醫療工作條件與實現社會責任永續等面向的階段成果。</p>
       <div class="mt-8 flex items-center justify-center gap-3">
         <a href="#events" class="btn-brand shadow">看活動總覽</a>
         <a href="#philosophy" class="btn-ghost">了解核心理念</a>
