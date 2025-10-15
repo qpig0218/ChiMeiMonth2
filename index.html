@@ -111,6 +111,28 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
 
 /* Event type badge */
 .event-type{ background-color: var(--c-primary-700); color:#fff; }
+/* Quick info badge on event cards */
+.event-info-badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-color: rgba(90,176,208,0.15);
+  color: var(--c-primary-700);
+  border: 1px solid rgba(90,176,208,0.3);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.event-info-badge:hover,
+.event-info-badge:focus{
+  background-color: var(--c-primary-700);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(38,125,156,0.2);
+  outline: none;
+}
 
 /* Respect users preferring reduced motion */
 @media (prefers-reduced-motion: reduce){
