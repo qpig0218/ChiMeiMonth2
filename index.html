@@ -152,7 +152,7 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
 a:focus-visible, button:focus-visible, [role="tab"]:focus-visible, [role="link"]:focus-visible { outline: var(--ring); outline-offset: 2px; border-radius: 8px; }
 
 /* Bento grid */
-.bento{ display:grid; gap:1rem; grid-template-columns: 1fr; }
+.bento{ display:grid; gap:1rem; grid-template-columns: 1fr; align-items:start; }
 @media (min-width: 768px){ .bento{ grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px){ .bento{ grid-template-columns: repeat(4, 1fr); } }
 .bento-card{ position:relative; background:#fff; border-radius:16px; padding:20px; box-shadow: 0 10px 16px -12px rgba(0,0,0,.25); transition: transform .25s ease, box-shadow .25s ease; border: 1px solid rgba(0,0,0,.06); }
