@@ -33,6 +33,20 @@
             height: 300px;
             max-height: 400px;
         }
+        .framework-circle {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 1 / 1;
+        }
+        .framework-circle__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 9999px;
+            clip-path: circle(50% at 50% 50%);
+            box-shadow: 0 10px 30px -12px rgba(38, 125, 156, 0.45);
+        }
         @media (min-width: 768px) {
             .chart-container {
                 height: 400px;
@@ -473,8 +487,8 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
                         <h4 class="text-center text-2xl font-bold text-gray-800 mb-8">六大執行範疇</h4>
                         <div class="lg:flex lg:space-x-8">
                             <div class="lg:w-1/2 mb-8 lg:mb-0">
-                                <div class="chart-container">
-                                    <canvas id="frameworkChart"></canvas>
+                                <div class="framework-circle mx-auto">
+                                    <img src="醫教架構.001.jpeg" alt="奇美醫教架構六大執行範疇示意" class="framework-circle__image">
                                 </div>
                             </div>
                             <div class="lg:w-1/2">
@@ -844,43 +858,6 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
                     </div>
                 `;
             }
-
-            const frameworkCtx = document.getElementById('frameworkChart').getContext('2d');
-            new Chart(frameworkCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(scopeData),
-                    datasets: [{
-                        label: '執行範疇',
-                        data: [1, 1, 1, 1, 1, 1],
-                        backgroundColor: ['rgba(126,200,227,0.75)','rgba(161,221,240,0.75)','rgba(215,242,250,0.75)','rgba(183,227,241,0.75)','rgba(126,201,230,0.75)','rgba(255,225,119,0.75)','rgba(171,216,235,0.75)'],
-                        borderColor: '#FDFBF8',
-                        borderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                             labels: {
-                                font: {
-                                    family: "'Inter', 'Noto Sans TC', sans-serif"
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.label;
-                                }
-                            }
-                        }
-                    },
-                    cutout: '60%'
-                }
-            });
 
             const venueTabsContainer = document.getElementById('venue-tabs');
             const eventsTimelineContainer = document.getElementById('events-timeline');
