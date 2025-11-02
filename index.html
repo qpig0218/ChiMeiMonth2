@@ -1097,9 +1097,16 @@ function computeNextUp(events) {
   const first = sorted[0];
   return `${first.date}｜${first.title}`;
 }
-document.querySelector('.next.museum').textContent = computeNextUp(eventsByVenue['奇美博物館']);
-document.querySelector('.next.wuyuan').textContent = computeNextUp(eventsByVenue['吳園']);
-document.querySelector('.next.hospital').textContent = computeNextUp(eventsByVenue['奇美醫院']);
+[
+  { selector: '.next.museum', venue: '奇美博物館' },
+  { selector: '.next.wuyuan', venue: '吳園' },
+  { selector: '.next.hospital', venue: '奇美醫院' }
+].forEach(({ selector, venue }) => {
+  const target = document.querySelector(selector);
+  if (target) {
+    target.textContent = computeNextUp(eventsByVenue[venue]);
+  }
+});
 
 // Bento card click -> filter timeline + scroll
 document.querySelectorAll('.venue-card').forEach(card => {
@@ -1138,6 +1145,7 @@ document.querySelectorAll('.venue-card').forEach(card => {
     }
   });
   const grid = document.querySelector('#mini-calendar .mini-cal');
+  if(!grid){ return; }
   for(let i=0;i<firstDay.getDay();i++){ const blank=document.createElement('div'); blank.className='day'; blank.setAttribute('aria-hidden','true'); blank.style.visibility='hidden'; grid.appendChild(blank); }
   for(let d=1; d<=lastDay.getDate(); d++){
     const cell = document.createElement('div');
