@@ -872,7 +872,8 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
             const philosophyContainer = document.getElementById('philosophy-cards');
             philosophyData.forEach(p => {
                 const card = document.createElement('div');
-                card.className = 'card bg-white p-8 rounded-xl shadow-md cursor-pointer';
+                card.className = 'card p-8 rounded-xl shadow-md cursor-pointer';
+                card.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
                 card.innerHTML = `
                     <div class="text-4xl mb-4">${p.icon}</div>
                     <h3 class="text-xl font-bold text-gray-800">${p.title}</h3>
