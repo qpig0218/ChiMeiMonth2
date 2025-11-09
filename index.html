@@ -121,6 +121,25 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
 }
 .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(247,250,252,0) 0%, rgba(247,250,252,1) 90%); }
 
+.philosophy-section{
+  position: relative;
+  background-image: url('messageImage_1762226797986.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  z-index: 0;
+}
+.philosophy-section::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(247,250,252,0.92) 0%, rgba(247,250,252,0.85) 100%);
+  backdrop-filter: blur(2px);
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Cards hover tone */
 .card:hover{ transform: translateY(-4px); box-shadow: 0 10px 20px -10px rgba(0,0,0,.25); }
 
@@ -474,8 +493,8 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
         </section>
 
         <!-- Philosophy Section -->
-        <section id="philosophy" class="py-16 md:py-24">
-            <div class="container mx-auto px-6">
+        <section id="philosophy" class="py-16 md:py-24 philosophy-section">
+            <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800">理念根基：源自許文龍先生的哲學</h2>
                     <p class="mt-4 max-w-2xl mx-auto text-gray-600">奇美醫學教育的獨特之處，在於其深植於創辦人的人本哲學。這些理念是我們的「根」，滋養著所有策略與行動。</p>
