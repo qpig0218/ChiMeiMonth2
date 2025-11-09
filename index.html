@@ -123,10 +123,6 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
 
 .philosophy-section{
   position: relative;
-  background-image: url('messageImage_1762226797986.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   overflow: hidden;
   z-index: 0;
 }
@@ -137,6 +133,18 @@ header .nav-link.active, header .nav-link:hover{ color: var(--c-primary-700); bo
   background: linear-gradient(180deg, rgba(247,250,252,0.92) 0%, rgba(247,250,252,0.85) 100%);
   backdrop-filter: blur(2px);
   z-index: 0;
+  pointer-events: none;
+}
+.philosophy-section::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('messageImage_1762226797986.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: 1;
   pointer-events: none;
 }
 
